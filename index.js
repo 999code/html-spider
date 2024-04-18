@@ -76,7 +76,6 @@ myXCrawl.crawlData({ targets }).then((res) => {
     item.desc,
   ]);
   // 处理
-  // console.log(JSON.stringify(res));
 });
 
 function getUbkzData(htmls) {
@@ -133,7 +132,6 @@ function getPan666Data(htmls) {
   const $ = cheerio.load(htmls);
   const pan666List = $(".App-content").find(".DiscussionList-discussions");
 
-  console.log(pan666List);
   const pan666ListData = [];
   pan666List.each(function (i, item) {
     const pan666ListTitle = $($(item).find(".DiscussionListItem-main"));
@@ -178,7 +176,6 @@ function getCuppasoData(htmls) {
   cuppasoList.each(function (i, item) {
     const cuppasoListTitle = $($(item).find("a"));
     // const cuppasoListTitleText = $(cuppasoListTitle).html;
-    // debugger;
     const cuppasoListTitleHref =
       "https://www.cuppaso.com/" + $(cuppasoListTitle[0]).attr("href");
     // const cuppasoListContent = $($(item).find("p")).text();
@@ -202,8 +199,6 @@ function getAlisoData(htmls) {
       alisoListTitleHref,
       alisoListContent,
     ]);
-
-    console.log(alisoListTitleHref);
   });
   return alisoListData;
 }
@@ -374,8 +369,6 @@ const crawlHTMLTarget = [
 
 myXCrawl.crawlHTML(crawlHTMLTarget).then((res) => {
   // 处理
-  // console.log(res);
-  // debugger;
   const htmls = res.map((item) => item.data?.html);
 
   // ubkz格式化
@@ -383,7 +376,6 @@ myXCrawl.crawlHTML(crawlHTMLTarget).then((res) => {
   const xuebapanData = getXbpData(htmls[1]);
   const ypzyData = getYpzyData(htmls[2]);
   const aliwpData = getAliwpData(htmls[3]);
-  console.log(htmls);
   const cuppasoData = getCuppasoData(htmls[4]);
   const alisoData = getAlisoData(htmls[5]);
   const xibuluoData = getXibluoData(htmls[6]);
@@ -411,13 +403,6 @@ myXCrawl.crawlHTML(crawlHTMLTarget).then((res) => {
   ];
   var buffer = xlsx.build([
     { name: "全网数据资源爬取统计表", data: shellData },
-  ]); // Returns a buffer
+  ]);
   fs.writeFileSync("datalist.xlsx", buffer, "binary");
-
-  // fs.writeFileSync("user.html", htmls[0], "utf8");
-
-  // console.log(JSON.stringify(htmlsObj));
-  // console.log(a);
-
-  // fs.writeFileSync("test.json", JSON.stringify({ message: htmls }), "binary");
 });
