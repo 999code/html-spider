@@ -55,17 +55,17 @@ const targets = [
 ];
 
 myXCrawl.crawlData({ targets }).then((res) => {
-  dataSchedule[0] = res[0].data.data.data.list.map((item) => [
+  dataSchedule[0] = res[0].data?.data?.data?.list.map((item) => [
     item.disk_name,
     item.link,
     item.files,
   ]);
-  dataSchedule[1] = res[1].data.data.data.list.map((item) => [
+  dataSchedule[1] = res[1].data?.data?.data?.list.map((item) => [
     item.disk_name,
     item.link,
     item.files,
   ]);
-  dataSchedule[2] = res[2].data.data.data.rows.map((item) => [
+  dataSchedule[2] = res[2].data?.data?.data?.rows.map((item) => [
     item.file_name,
     item.url,
     "https://yapan.io",
@@ -75,9 +75,6 @@ myXCrawl.crawlData({ targets }).then((res) => {
     "https://panyq.com",
     item.desc,
   ]);
-
-  debugger;
-
   // 处理
   // console.log(JSON.stringify(res));
 });
@@ -124,7 +121,7 @@ function getYpzyData(htmls) {
     const ypzyListTitle = $($(item).find("a"));
     const ypzyListTitleText = $(ypzyListTitle[0]).text();
     const ypzyListTitleHref =
-      "https://www.yunpanziyuan.xyz" + $(ypzyListTitle[0]).attr("href");
+      "https://www.yunpanziyuan.xyz/" + $(ypzyListTitle[0]).attr("href");
     // const ypzyListContent = $($(item).find(".list-group-item-text")[0]).text();
     ypzyListData.push([ypzyListTitleText, ypzyListTitleHref, ""]);
   });
@@ -379,7 +376,7 @@ myXCrawl.crawlHTML(crawlHTMLTarget).then((res) => {
   // 处理
   // console.log(res);
   // debugger;
-  const htmls = res.map((item) => item.data.html);
+  const htmls = res.map((item) => item.data?.html);
 
   // ubkz格式化
   const ubkzListData = getUbkzData(htmls[0]);
